@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmq-deploy
+  labels:
+    app: myrmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myrmq
+  template:
+    metadata:
+      labels:
+        app: myrmq
+    spec:
+      containers:
+      - name: myrmq
+        image: rabbitmq
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 15672
+          name: myrmq-port
+        env:
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: rmq-password
+        - name: RABBITMQ_DEFAULT_USER
+          value: "guest"
+
+    

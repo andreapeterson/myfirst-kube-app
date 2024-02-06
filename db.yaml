@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deploy
+  labels:
+    app: mydb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mydb
+  template:
+    metadata:
+      labels:
+        app: mydb
+    spec:
+      containers:
+      - name: milowilo-db
+        image: andreapeterson/milowilo-db
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 3306
+          name: mydb-port
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mysecret
+              key: db-password
+        volumeMounts:
+        - name: data-volume
+          mountPath: /var/lib/mysql
+      volumes: 
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: csi-pvc
+        

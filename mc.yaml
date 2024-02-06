@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mc-deploy
+  labels:
+    app: mymc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mymc
+  template:
+    metadata:
+      labels:
+        app: mymc
+    spec:
+      containers:
+      - name: mymc
+        image: memcached
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 11211
+          name: mymc-port

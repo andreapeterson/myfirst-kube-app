@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cache
+spec:
+  selector:
+    app: mymc
+  ports:
+  - port: 11211
+    targetPort: 11211
+    protocol: TCP
+  type: ClusterIP

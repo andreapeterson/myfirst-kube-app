@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy
+  labels:
+    app: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: milowilo-app
+        image: andreapeterson/milowilo-app
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 8080
+          name: myapp-port
+      initContainers:
+      - name: init-mydb
+        image: busybox
+        commands: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+      - name: init-mymc
+        image: busybox
+        commands: ['sh', '-c', 'until nslookup mydc; do echo waiting for mydc; sleep 2; done;']
+
+        

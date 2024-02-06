@@ -19,7 +19,7 @@ spec:
         image: andreapeterson/milowilo-app
         resources:
           limits:
-            memory: "512Mi"
+            memory: "1Gi"
             cpu: "200m"
         ports:
         - containerPort: 8080

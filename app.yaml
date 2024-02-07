@@ -27,9 +27,9 @@ spec:
       initContainers:
       - name: init-mydb
         image: busybox
-        command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+        command: ['sh', '-c', "until nslookup db.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
       - name: init-mymc
         image: busybox
-        command: ['sh', '-c', 'until nslookup mymc; do echo waiting for mymc; sleep 2; done;']
+        command: ['sh', '-c', "until nslookup cache.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mymc; sleep 2; done"]
 
         

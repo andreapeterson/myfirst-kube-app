@@ -30,6 +30,6 @@ spec:
         command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
       - name: init-mymc
         image: busybox
-        command: ['sh', '-c', 'until nslookup mydc; do echo waiting for mydc; sleep 2; done;']
+        command: ['sh', '-c', 'until nslookup mymc; do echo waiting for mymc; sleep 2; done;']
 
         

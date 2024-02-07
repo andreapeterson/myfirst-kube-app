@@ -7,6 +7,6 @@ spec:
     app: mydb
   ports:
   - port: 3306
-    targetPort: 8080
+    targetPort: 3306
     protocol: TCP
   type: ClusterIP
